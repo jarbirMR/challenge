@@ -12,20 +12,20 @@ services:
       dockerfile: Dockerfile.dev
       target: base
     ports:
-      - 4002:4002
+      - 4003:4003
     command: >
       sh -c "npm run dev"
     volumes:
       - ./src/src:/app/src
 
-cha_db:
+  cha_db:
     image: mariadb:11.2.3
-    hostname: challenge_db
-    container_name: challenge_db
+    hostname: cha_db
+    container_name: cha_db
     restart: unless-stopped
     env_file:
       - src/local.env
     volumes:
       - ./dbdata:/var/lib/mysql
     ports:
-      - 3311:3307
+      - 3311:3306
