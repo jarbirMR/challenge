@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  server:
+    environment:
+      - NODE_ENV=local
+    hostname: challenge_server
+    container_name: challenge_server
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: base
+    ports:
+      - 4002:4002
+    command: >
+      sh -c "npm run dev"
+    volumes:
+      - ./src/src:/app/src
+
+cha_db:
+    image: mariadb:11.2.3
+    hostname: challenge_db
+    container_name: challenge_db
+    restart: unless-stopped
+    env_file:
+      - src/local.env
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    ports:
+      - 3311:3307
