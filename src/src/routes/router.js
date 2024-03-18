@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const resolveUserDBConnection = require("../middleware/db-conecction");
+const AuthRoutes = require("./auth/auth-router");
+
 
 
 
@@ -7,14 +8,12 @@ const resolveUserDBConnection = require("../middleware/db-conecction");
 class AppRouter {
     static get routes() {
       const router = Router();
-
-      router.use(resolveUserDBConnection);
   
       router.get("/api", (_, res) => {
         return res.status(200).send("Welcome to user API");
       });
 
-      
+      router.use("/api/v1/auth", AuthRoutes.routes);
       return router;
     }
   }

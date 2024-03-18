@@ -16,20 +16,6 @@ class Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(morgan("dev"));
-    this.app.use(this.routes);
-    this.app.use(
-      fileUpload({
-        abortOnLimit: true,
-        limits: {
-          fileSize: 1 * 1024 * 1024,
-        },
-        responseOnLimit: JSON.stringify({
-          status: false,
-          data: null,
-          error: "El tamaño del archivo supera 1MB",
-        }),
-      })
-    );
 
     this.app.use(this.routes);
   }

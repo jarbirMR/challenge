@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const envs = require("./environments");
 
 class JWT {
-  static async generateToken(payload, duration = "12h") {
+  static async generateToken(payload, duration = "1h") {
     return new Promise((resolve) => {
       jwt.sign(
         payload,
