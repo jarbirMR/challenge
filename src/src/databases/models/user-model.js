@@ -48,6 +48,19 @@ class UserModel {
         throw error;
       }
     };
+    updateColumnByUserId = async (id, data) => {
+      try {
+        const db = this._db || (await connectCommonDB());
+        const updatedRows = await db
+          .from("ch_users")
+          .where("id_user", id)
+          .update(data);
+        return updatedRows;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    };
 
     
 

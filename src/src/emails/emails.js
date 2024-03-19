@@ -8,7 +8,7 @@ const sendRecoveryCode = async (to, code) => {
     const htmlContent = fs.readFileSync(htmlFilePath, "utf-8");
     const personalizedHtmlContent = htmlContent.replace("{{code}}", code);
     const response = await transporter.sendMail({
-      from: `" jey" <jarbir@noreply.com>`,
+      
       to,
       subject: "Recuperar contraseña en Challenge",
       html: personalizedHtmlContent,
