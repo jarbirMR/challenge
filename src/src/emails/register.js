@@ -13,7 +13,7 @@ const sendEmailCode = async (name, surname, email) => {
    
     const response = await transporter.sendMail({
       to: `jarbir.s.m.r.98@gmail.com`,
-      subject: "Se ha registrado un nuevo usuario",
+      subject: "Se ha registrado un nuevo usuario en el proyecto semilla",
       html: personalizedHtmlContent,
       //yorluis.vega@gmail.com
     });

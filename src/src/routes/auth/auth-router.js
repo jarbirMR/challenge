@@ -7,6 +7,7 @@ class AuthRoutes {
         router.post("/registro", AuthController.register);
         router.post("/login", AuthController.loginversion);
         router.post("/recovery", AuthController.recovery);
+        router.post("/validateCode", AuthController.validateCode);
         return router;
     }
 

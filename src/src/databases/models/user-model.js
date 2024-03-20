@@ -81,6 +81,22 @@ class UserModel {
         throw error;
       }
     };
+
+    listUsers = async () => {
+      try {
+        const db = this._db || (await connectCommonDB());
+        const listUsers = await db.select([
+          "id_user",
+          "ch_name",
+          "ch_surname",
+          "ch_email"
+        ]).from("ch_users");
+        return listUsers;
+      }catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
 }
 
 module.exports = UserModel;

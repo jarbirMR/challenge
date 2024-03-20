@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const AuthRoutes = require("./auth/auth-router");
+const UserRoutes = require("./users/users-router");
 
 
 
@@ -14,6 +15,7 @@ class AppRouter {
       });
 
       router.use("/api/v1/auth", AuthRoutes.routes);
+      router.use("/api/v1/users", UserRoutes.routes);
       return router;
     }
   }

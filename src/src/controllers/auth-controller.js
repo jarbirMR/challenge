@@ -50,13 +50,20 @@ class AuthController {
 
   static loginversion = async (req = request, res = response) => {
     try {
-      let { ch_email, ch_password } = req.body;
+      let { ch_email, password } = req.body;
       const userModel = new UserModel();
       const user = await userModel.findByEmail(ch_email);
       // res.send("Usuario exitoso!");
       if (!user) throw CustomError.notFound("User not exist");
-      const pass = await userModel.findByPass(ch_password);
-      if (!pass) throw CustomError.notFound("password incorrect");
+      const { ch_password} = user;
+      console.log (ch_password);
+      const isValidPassword = Encrypter.compare(password, ch_password);
+     if (!isValidPassword)
+        throw CustomError.unauthorized("Password is not valid");
+      //const pass = await userModel.findByPass(ch_password);
+      //if (!pass) throw CustomError.notFound("password incorrect");
+      
+      
       const token = await JWT.generateToken({
         email: user.ch_email
 
@@ -114,6 +121,24 @@ class AuthController {
 
 
     } catch (error) {
+      this.#handleError(error, res);
+    }
+  }
+
+  static validateCode = async (req = request, res = response) => {
+    try {
+      let {email, code} = req.body;
+      const userModel = new UserModel();
+      const user = await userModel.findByEmail(email);
+      if(!user) throw CustomError.notFound("User not exist");
+      if (user.ch_code !== code)
+      throw CustomError.unauthorized("Code is not valid");
+      return res.status(200).json({
+        status: true,
+        data: null,
+        error: null,
+      });
+    }catch (error) {
       this.#handleError(error, res);
     }
   }
